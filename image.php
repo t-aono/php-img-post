@@ -1,0 +1,16 @@
+<?php
+require_once 'functions.php';
+
+$pdo = connectDB();
+
+$sql = 'SELECT * FROM image_posts WHERE image_id = :image_id LIMIT 1';
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':image_id', (int)$_GET['id'], PDO::PARAM_INT);
+$stmt->execute();
+$image = $stmt->fetch();
+
+header('Content-type: ' . $image['image_type']);
+echo $image['image_content'];
+
+unset($pdo);
+exit();
