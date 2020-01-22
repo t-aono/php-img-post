@@ -11,7 +11,8 @@ function connectDB() {
     } else {
       // herokuのClearDBに接続
       $heroku_db = parse_url(getenv('CLEARDB_DATABASE_URL'));
-      $db = new PDO('mysql:dbname='.substr($heroku_db['path'], 1).';host='.$heroku_db['host'].';charset=utf8', $heroku_db['user'], $heroku_db['pass']);
+      $pdo = new PDO('mysql:dbname='.substr($heroku_db['path'], 1).';host='.$heroku_db['host'].';charset=utf8', $heroku_db['user'], $heroku_db['pass']);
+      return $pdo;
     }
 
   } catch (PDOException $e) {
